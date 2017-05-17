@@ -4,6 +4,9 @@
   "description": "Simple node.js app to send alerts from the water sensor",
   "main": "server.js",
   "dependencies": {
+    "base64-js": "^1.2.0",
+    "body-parser": "^1.17.1",
+    "express": "^4.15.2",
     "twilio": "^3.0.0"
   },
   "devDependencies": {},
