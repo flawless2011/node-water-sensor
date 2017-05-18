@@ -8,8 +8,6 @@ const iv = Buffer.from(
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01
   ]);
 
-const decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(process.env.AES_256_KEY), iv);
-
 var client = new twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
 
 var Alerts = module.exports;
@@ -20,10 +18,12 @@ Alerts.send = function(req, res) {
 };
 
 var decrypt = function(text, encoding) {
+  const decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(process.env.AES_256_KEY), iv);
+  decipher.setAutoPadding(false);
   let decrypted = decipher.update(text, encoding, 'utf8');
-  let decryptedText = decrypted.toString().substring(0, decrypted.indexOf('}') +1);
-  console.log(decryptedText);
-  let payload = JSON.parse(decryptedText);
+  decrypted += decipher.final('utf8');
+  console.log(decrypted);
+  let payload = JSON.parse(decrypted);
   sendTwilioSMS(payload.toNumber);
 };
 
