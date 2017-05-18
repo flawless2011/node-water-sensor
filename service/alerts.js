@@ -21,13 +21,16 @@ Alerts.send = function(req, res) {
 
 var decrypt = function(text, encoding) {
   let decrypted = decipher.update(text, encoding, 'utf8');
-  let payload = JSON.parse(decrypted.toString().substring(0, decrypted.indexOf('}') +1));
+  let decryptedText = decrypted.toString().substring(0, decrypted.indexOf('}') +1);
+  console.log(decryptedText);
+  let payload = JSON.parse(decryptedText);
   sendTwilioSMS(payload.toNumber);
 };
 
 var sendTwilioSMS = function(toNumber) {
+  let msgBody = 'Water detected at ' + new Date().toLocaleTimeString({timeZone: 'America/Chicago'}) + ' Central time!';
   client.messages.create({
-    body: 'The water sensor detected WATER!',
+    body: msgBody,
     to: toNumber,
     from: process.env.FROM_PHONE
   }).then((message) => console.log(message.sid));
