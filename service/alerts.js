@@ -22,6 +22,8 @@ var decrypt = function(text, encoding) {
   decipher.setAutoPadding(false);
   let decrypted = decipher.update(text, encoding, 'utf8');
   decrypted += decipher.final('utf8');
+  // String will always be of length 32 due to encryption padding so we need to strip off null characters at end
+  decrypted = decrypted.substring(0, decrypted.lastIndexOf('}') + 1);
   console.log(decrypted);
   let payload = JSON.parse(decrypted);
   sendTwilioSMS(payload.toNumber);
