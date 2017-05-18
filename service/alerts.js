@@ -15,6 +15,7 @@ var client = new twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
 var Alerts = module.exports;
 
 Alerts.send = function(req, res) {
+  console.log(req.body.payload);
   decrypt(req.body.payload, 'base64');
 };
 
