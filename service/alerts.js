@@ -7,25 +7,14 @@ const iv = Buffer.from(
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01
   ]);
-// TODO add real key
-const key = Buffer.from(
-  [
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
-    0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00
-  ]);
-const decipher = crypto.createDecipheriv('aes-256-cbc', key, iv);
 
-// TODO add sid and token
-var accountSid = '';
-var authToken = '';
+const decipher = crypto.createDecipheriv('aes-256-cbc', Buffer.from(process.env.AES_256_KEY), iv);
 
-var client = new twilio(accountSid, authToken);
+var client = new twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
 
 var Alerts = module.exports;
 
 Alerts.send = function(req, res) {
-  console.log('req.body=' + req.body.payload);
-  console.log('raw bytes=' + Buffer.from(base64.toByteArray(req.body.payload)).toString('hex'));
   decrypt(req.body.payload, 'base64');
 };
 
@@ -39,6 +28,6 @@ var sendTwilioSMS = function(toNumber) {
   client.messages.create({
     body: 'The water sensor detected WATER!',
     to: toNumber,
-    from: '' // TODO add number
+    from: process.env.FROM_PHONE
   }).then((message) => console.log(message.sid));
 };
