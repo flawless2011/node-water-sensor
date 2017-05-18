@@ -22,5 +22,8 @@
   "bugs": {
     "url": "https://github.com/flawless2011/node-water-sensor/issues"
   },
-  "homepage": "https://github.com/flawless2011/node-water-sensor#readme"
+  "homepage": "https://github.com/flawless2011/node-water-sensor#readme",
+  "engines": {
+    "node": "6.10.1"
+  }
 }
