@@ -15,6 +15,7 @@ var Alerts = module.exports;
 Alerts.send = function(req, res) {
   console.log(req.body.payload);
   decrypt(req.body.payload, 'base64');
+  res.status(200).send({status: "OK"});
 };
 
 var decrypt = function(text, encoding) {
