@@ -1,4 +1,4 @@
-const twilio = require('twilio');
+const client = require('twilio')(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
 const crypto = require('crypto');
 const base64 = require('base64-js');
 
@@ -7,8 +7,6 @@ const iv = Buffer.from(
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00,
     0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x01
   ]);
-
-var client = new twilio(process.env.TWILIO_SID, process.env.TWILIO_TOKEN);
 
 var Alerts = module.exports;
 
