@@ -6,7 +6,7 @@
   "dependencies": {
     "base64-js": "^1.2.0",
     "body-parser": "^1.17.1",
-    "express": "^4.15.2",
+    "express": "^4.17.3",
     "twilio": "^3.43.1"
   },
   "devDependencies": {},
